@@ -1,0 +1,21 @@
+<div class="countdown">
+  <div class="countdown__unit">
+    <span class="countdown__value">{{ pad(timeLeft().days) }}</span>
+    <span class="countdown__label">{{ i18n.t('countdown.days') }}</span>
+  </div>
+  <span class="countdown__sep">:</span>
+  <div class="countdown__unit">
+    <span class="countdown__value">{{ pad(timeLeft().hours) }}</span>
+    <span class="countdown__label">{{ i18n.t('countdown.hours') }}</span>
+  </div>
+  <span class="countdown__sep">:</span>
+  <div class="countdown__unit">
+    <span class="countdown__value">{{ pad(timeLeft().minutes) }}</span>
+    <span class="countdown__label">{{ i18n.t('countdown.minutes') }}</span>
+  </div>
+  <span class="countdown__sep">:</span>
+  <div class="countdown__unit">
+    <span class="countdown__value">{{ pad(timeLeft().seconds) }}</span>
+    <span class="countdown__label">{{ i18n.t('countdown.seconds') }}</span>
+  </div>
+</div>

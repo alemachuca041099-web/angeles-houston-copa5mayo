@@ -1,0 +1,39 @@
+<app-page-header
+  [kicker]="i18n.t('galeria.header.kicker')"
+  [title]="i18n.t('galeria.header.title')"
+  [subtitle]="i18n.t('galeria.header.subtitle')"
+></app-page-header>
+
+<section class="section">
+  <div class="container">
+    <div class="gallery-grid">
+      @for (item of visibleItems(); track item.id; let i = $index) {
+        <div class="gallery-grid__item" appReveal="zoom-in" [revealDelay]="(i % 6) * 60" (click)="open(item)">
+          @if (!failedItems.has(item.id)) {
+            <img [src]="item.imageUrl" [alt]="i18n.pick(item.caption, item.captionEn)" loading="lazy" (error)="onImgError(item.id)" />
+          } @else {
+            <div class="gallery-grid__fallback"><span>{{ i18n.t('common.photoSoon') }}</span></div>
+          }
+          <div class="gallery-grid__overlay">
+            <span class="gallery-grid__category">{{ i18n.t('category.' + item.category) }}</span>
+            <span class="gallery-grid__caption">{{ i18n.pick(item.caption, item.captionEn) }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (hasMore()) {
+      <div class="gallery-more">
+        <button class="btn btn-outline" (click)="loadMore()">{{ i18n.t('galeria.loadMore') }}</button>
+      </div>
+    }
+  </div>
+</section>
+
+@if (lightboxItem(); as item) {
+  <div class="lightbox" (click)="close()">
+    <button class="lightbox__close" (click)="close()" [attr.aria-label]="i18n.t('galeria.close')">&times;</button>
+    <img [src]="item.imageUrl" [alt]="i18n.pick(item.caption, item.captionEn)" (click)="$event.stopPropagation()" />
+    <p (click)="$event.stopPropagation()">{{ i18n.pick(item.caption, item.captionEn) }}</p>
+  </div>
+}

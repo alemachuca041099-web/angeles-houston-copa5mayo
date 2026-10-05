@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "angeles-houston-copa5mayo",
+  "compatibility_date": "2026-09-18",
+  "assets": {
+    "directory": "./dist/angeles-puebla/browser",
+    "not_found_handling": "single-page-application"
+  }
+}

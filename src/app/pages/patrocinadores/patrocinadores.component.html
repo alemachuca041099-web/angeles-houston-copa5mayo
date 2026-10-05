@@ -1,0 +1,74 @@
+<app-page-header
+  [kicker]="i18n.t('patrocinadores.header.kicker')"
+  [title]="i18n.t('patrocinadores.header.title')"
+  [subtitle]="i18n.t('patrocinadores.header.subtitle')"
+></app-page-header>
+
+<section class="section">
+  <div class="container">
+    <!-- Patrocinador principal -->
+    @if (titleSponsor) {
+      <div class="title-sponsor" appReveal="zoom-in">
+        <span class="title-sponsor__badge">{{ i18n.t('patrocinadores.mainBadge') }}</span>
+        <div class="title-sponsor__body">
+          <div class="title-sponsor__monogram">{{ initials(titleSponsor.name) }}</div>
+          <div class="title-sponsor__info">
+            <h2>{{ titleSponsor.name }}</h2>
+            <p>{{ i18n.t('patrocinadores.mainCaption') }}</p>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="title-sponsor title-sponsor--waiting" appReveal="zoom-in">
+        <span class="title-sponsor__badge">{{ i18n.t('patrocinadores.waiting.badge') }}</span>
+        <p class="title-sponsor__waiting-text">{{ i18n.t('patrocinadores.waiting.text') }}</p>
+      </div>
+    }
+
+    <!-- Por qué patrocinar -->
+    <div class="why-grid">
+      <div class="why-card" appReveal="fade-up" [revealDelay]="0">
+        <span class="why-card__num">32</span>
+        <span class="why-card__label">{{ i18n.t('patrocinadores.why1.label') }}</span>
+      </div>
+      <div class="why-card" appReveal="fade-up" [revealDelay]="90">
+        <span class="why-card__num">8</span>
+        <span class="why-card__label">{{ i18n.t('patrocinadores.why2.label') }}</span>
+      </div>
+      <div class="why-card" appReveal="fade-up" [revealDelay]="180">
+        <span class="why-card__num">2</span>
+        <span class="why-card__label">{{ i18n.t('patrocinadores.why3.label') }}</span>
+      </div>
+    </div>
+
+    <!-- Niveles de patrocinio -->
+    @for (tier of tiers; track tier) {
+      @if (byTier(tier).length > 0) {
+        <div class="tier-block" appReveal="fade-up">
+          <h3 class="tier-block__title" [class]="'tier--' + tier.toLowerCase()">
+            <span class="tier-block__dot"></span>
+            {{ i18n.t('patrocinadores.level') }} {{ i18n.t('patrocinadores.tier.' + tier.toLowerCase()) }}
+          </h3>
+          <div class="tier-block__grid">
+            @for (sponsor of byTier(tier); track sponsor.id) {
+              <div class="sponsor-card" [class]="'sponsor-card--' + tier.toLowerCase()">
+                @if (sponsor.logoUrl) {
+                  <img class="sponsor-card__logo" [src]="sponsor.logoUrl" [alt]="sponsor.name" loading="lazy" />
+                } @else {
+                  <span class="sponsor-card__monogram">{{ initials(sponsor.name) }}</span>
+                }
+                <span class="sponsor-card__name">{{ sponsor.name }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    }
+
+    <div class="sponsor-cta" appReveal="zoom-in">
+      <h3>{{ i18n.t('patrocinadores.cta.title') }}</h3>
+      <p>{{ i18n.t('patrocinadores.cta.subtitle') }}</p>
+      <a routerLink="/contacto" class="btn btn-primary">{{ i18n.t('patrocinadores.cta.button') }}</a>
+    </div>
+  </div>
+</section>

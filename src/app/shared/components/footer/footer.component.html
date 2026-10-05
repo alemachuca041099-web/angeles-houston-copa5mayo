@@ -1,0 +1,75 @@
+<footer class="footer">
+  <div class="footer__glow"></div>
+
+  <div class="container">
+    <div class="footer__sponsor-invite">
+      <img class="footer__sponsor-invite__medal" src="assets/images/decor/medal-3d.png" alt="" aria-hidden="true" />
+      <div class="footer__sponsor-invite__body">
+        <span class="footer__sponsor-invite__kicker">{{ i18n.t('home.sponsors.kicker') }}</span>
+        <h4>{{ i18n.t('footer.sponsorInvite.title') }}</h4>
+        <p>{{ i18n.t('footer.sponsorInvite.subtitle') }}</p>
+      </div>
+      <a routerLink="/patrocinadores" class="btn btn-primary footer__sponsor-invite__btn">{{ i18n.t('home.cta.sponsor') }}</a>
+    </div>
+  </div>
+
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <img class="footer__crest" src="assets/images/logo.png" alt="Ángeles Houston" />
+      <h3>Ángeles <span class="gold-text">Houston</span></h3>
+      <p>{{ i18n.t('footer.tagline') }}</p>
+      <div class="footer__social">
+        <a href="https://www.facebook.com/Copa5DeMayoHoustonOficial" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.6" />
+            <path d="M14 8.5h-1.2c-.9 0-1.3.5-1.3 1.4V11H14l-.3 2.2h-2.2V19h-2.3v-5.8H7.5V11h1.7V9.6c0-2 1.1-3.3 3.2-3.3H14v2.2Z" fill="currentColor" />
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/copa5demayo_oficial" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6" />
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6" />
+            <circle cx="17" cy="7" r="1" fill="currentColor" />
+          </svg>
+        </a>
+        <a href="https://youtube.com/@copa5demayooficial" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <rect x="2" y="5" width="20" height="14" rx="4" stroke="currentColor" stroke-width="1.6" />
+            <path d="M10.5 9.5v5l4.5-2.5-4.5-2.5Z" fill="currentColor" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer__col footer__col--nav">
+      <h4>{{ i18n.t('footer.col.liga') }}</h4>
+      <a routerLink="/torneos">{{ i18n.t('nav.torneos') }}</a>
+      <a routerLink="/tabla">{{ i18n.t('nav.tabla') }}</a>
+      <a routerLink="/equipos">{{ i18n.t('nav.equipos') }}</a>
+      <a routerLink="/resultados">{{ i18n.t('nav.resultados') }}</a>
+    </div>
+
+    <div class="footer__col footer__col--nav">
+      <h4>{{ i18n.t('footer.col.contenido') }}</h4>
+      <a routerLink="/galeria">{{ i18n.t('nav.galeria') }}</a>
+      <a routerLink="/patrocinadores">{{ i18n.t('nav.patrocinadores') }}</a>
+      <a routerLink="/contacto">{{ i18n.t('nav.contacto') }}</a>
+    </div>
+
+    <div class="footer__col footer__col--contact">
+      <h4>{{ i18n.t('footer.col.contacto') }}</h4>
+      <p>{{ i18n.t('footer.address') }}</p>
+      <p>info&#64;houston.tucopacincodemayo.com</p>
+      <p>+1 (908) 341-2559</p>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <span>&copy; {{ year }} {{ i18n.t('footer.copyright') }}</span>
+    <a routerLink="/privacidad">{{ i18n.t('footer.privacy') }}</a>
+    <span>
+      {{ i18n.t('footer.designed') }}
+      <a href="https://zelyonsolutions.com" target="_blank" rel="noopener">ZELYON</a>
+    </span>
+  </div>
+</footer>

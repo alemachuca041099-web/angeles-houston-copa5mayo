@@ -1,0 +1,42 @@
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  gap: 60px;
+  animation: scroll 26s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__item {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+
+  span {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: rgba(250, 248, 242, 0.35);
+    white-space: nowrap;
+    transition: color 0.3s;
+
+    &:hover {
+      color: var(--gold-300);
+    }
+  }
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

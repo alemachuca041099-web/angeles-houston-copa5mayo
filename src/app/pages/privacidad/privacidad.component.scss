@@ -1,0 +1,30 @@
+.privacy-content {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.privacy-block {
+  margin-bottom: 40px;
+
+  h2 {
+    font-size: 1.3rem;
+    text-transform: none;
+    font-family: var(--font-body);
+    font-weight: 800;
+    color: var(--gold-300);
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: rgba(250, 248, 242, 0.72);
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+}
+
+.privacy-updated {
+  font-size: 0.82rem;
+  color: rgba(250, 248, 242, 0.45);
+  border-top: 1px solid rgba(212, 175, 55, 0.14);
+  padding-top: 20px;
+}

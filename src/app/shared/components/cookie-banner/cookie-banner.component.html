@@ -1,0 +1,15 @@
+@if (visible()) {
+  <div class="cookie-modal-backdrop">
+    <div class="cookie-modal">
+      <h3>{{ i18n.t('cookies.banner.title') }}</h3>
+      <p>
+        {{ i18n.t('cookies.banner.text') }}
+        <a routerLink="/privacidad">{{ i18n.t('cookies.banner.link') }}</a>
+      </p>
+      <div class="cookie-modal__actions">
+        <button type="button" class="btn btn-outline" (click)="decline()">{{ i18n.t('cookies.banner.decline') }}</button>
+        <button type="button" class="btn btn-primary" (click)="accept()">{{ i18n.t('cookies.banner.accept') }}</button>
+      </div>
+    </div>
+  </div>
+}

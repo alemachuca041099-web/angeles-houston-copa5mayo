@@ -1,0 +1,30 @@
+<header class="navbar" [class.is-scrolled]="scrolled()">
+  <div class="navbar__bar container">
+    <a routerLink="/" class="navbar__brand" (click)="closeMenu()">
+      <img class="navbar__crest" src="assets/images/logo.png" alt="Ángeles Houston" />
+      <span class="navbar__brand-text">
+        <strong>{{ i18n.t('nav.brand.line1') }}</strong>
+        <em>{{ i18n.t('nav.brand.line2') }}</em>
+      </span>
+    </a>
+
+    <nav class="navbar__links" [class.is-open]="menuOpen()">
+      @for (link of links; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+          (click)="closeMenu()"
+        >{{ i18n.t(link.key) }}</a>
+      }
+    </nav>
+
+    <app-lang-switch class="navbar__lang"></app-lang-switch>
+
+    <a routerLink="/contacto" class="btn btn-primary navbar__cta" (click)="closeMenu()">{{ i18n.t('nav.cta') }}</a>
+
+    <button class="navbar__toggle" (click)="toggleMenu()" [class.is-open]="menuOpen()" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

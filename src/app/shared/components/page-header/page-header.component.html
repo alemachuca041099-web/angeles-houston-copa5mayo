@@ -1,0 +1,15 @@
+<header class="page-header">
+  @if (imageSeed && !imgFailed) {
+    <div class="page-header__bg">
+      <img [src]="'assets/images/headers/' + imageSeed + '.png'" alt="" loading="eager" (error)="onImgError()" />
+    </div>
+  }
+  <div class="page-header__scrim"></div>
+  <div class="container page-header__content">
+    <span class="kicker">{{ kicker }}</span>
+    <h1 [innerHTML]="title"></h1>
+    @if (subtitle) {
+      <p>{{ subtitle }}</p>
+    }
+  </div>
+</header>

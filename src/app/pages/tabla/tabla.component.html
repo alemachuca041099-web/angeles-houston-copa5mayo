@@ -1,0 +1,36 @@
+<app-page-header
+  [kicker]="i18n.t('tabla.header.kicker')"
+  [title]="i18n.t('tabla.header.title')"
+  [subtitle]="i18n.t('tabla.header.subtitle')"
+  imageSeed="tabla-header"
+></app-page-header>
+
+<section class="section">
+  <div class="container">
+    <div class="format-note" appReveal="fade-up">
+      <span class="kicker">{{ i18n.t('tabla.format.kicker') }}</span>
+      <h2 [innerHTML]="i18n.t('tabla.format.title')"></h2>
+      <p [innerHTML]="i18n.t('tabla.format.body')"></p>
+    </div>
+
+    <div class="groups-grid">
+      @for (group of groups; track group; let i = $index) {
+        <div class="group-card" appReveal="fade-up" [revealDelay]="(i % 4) * 80">
+          <h3>{{ i18n.t('tabla.groupLabel') }} {{ group }}</h3>
+          <div class="group-card__slots">
+            @for (slot of slots; track slot) {
+              <div class="group-card__slot">
+                <span class="group-card__num">{{ slot }}</span>
+                <span class="group-card__name">{{ i18n.t('common.teamPending') }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="format-cta">
+      <a routerLink="/torneos" class="btn btn-outline">{{ i18n.t('tabla.cta') }}</a>
+    </div>
+  </div>
+</section>

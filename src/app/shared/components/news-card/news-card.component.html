@@ -1,0 +1,22 @@
+<article class="news-card" [class.news-card--large]="large">
+  <div class="news-card__media">
+    @if (!imgFailed) {
+      <img [src]="news.imageUrl" [alt]="news.title" loading="lazy" (error)="onImgError()" />
+    } @else {
+      <div class="news-card__fallback">
+        <span>Foto próximamente</span>
+      </div>
+    }
+    <span class="news-card__category">{{ news.category }}</span>
+  </div>
+  <div class="news-card__body">
+    <div class="news-card__meta">
+      <span>{{ news.date }}</span>
+      <span class="dot"></span>
+      <span>{{ news.readTime }} de lectura</span>
+    </div>
+    <h3>{{ news.title }}</h3>
+    <p>{{ news.excerpt }}</p>
+    <span class="news-card__link">Leer más <i>&rarr;</i></span>
+  </div>
+</article>

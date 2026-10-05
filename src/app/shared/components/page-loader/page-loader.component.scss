@@ -1,0 +1,51 @@
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  background: var(--ink-950);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-impact);
+}
+
+.page-loader--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.page-loader__spinner {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0%, var(--gold-300) 100%);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+    animation: pageLoaderSpin 1s linear infinite;
+  }
+}
+
+.page-loader__logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  animation: pageLoaderPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pageLoaderSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pageLoaderPulse {
+  0%, 100% { opacity: 0.7; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.04); }
+}

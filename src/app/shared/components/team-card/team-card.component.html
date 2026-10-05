@@ -1,0 +1,18 @@
+<article class="team-card">
+  <div class="team-card__inner">
+    @if (rank) {
+      <span class="team-card__rank">#{{ rank }}</span>
+    }
+    <div class="team-card__crest">
+      <app-team-crest [team]="team" [size]="84"></app-team-crest>
+    </div>
+    <h3>{{ team.shortName }}</h3>
+    <p class="team-card__city">{{ team.city }}</p>
+    <div class="team-card__meta">
+      <span>Fundado {{ team.founded }}</span>
+      <span class="dot"></span>
+      <span>{{ team.stadium }}</span>
+    </div>
+    <div class="team-card__shine"></div>
+  </div>
+</article>

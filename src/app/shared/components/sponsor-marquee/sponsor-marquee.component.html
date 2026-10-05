@@ -1,0 +1,9 @@
+<div class="marquee">
+  <div class="marquee__track">
+    @for (sponsor of loopSponsors; track $index) {
+      <div class="marquee__item">
+        <span>{{ sponsor.name }}</span>
+      </div>
+    }
+  </div>
+</div>

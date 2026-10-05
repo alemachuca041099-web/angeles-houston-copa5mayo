@@ -1,0 +1,226 @@
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero__bg" [style.transform]="'translateY(' + parallaxOffset() * 0.25 + 'px)'">
+    <img src="assets/images/hero/hero-home.png" alt="Estadio Corona Dorada" />
+  </div>
+  <div class="hero__rays" [style.transform]="'translateY(' + parallaxOffset() * 0.1 + 'px)'"></div>
+  <div class="hero__particles">
+    @for (i of [1,2,3,4,5,6,7,8,9,10,11,12]; track i) {
+      <span class="particle" [style.--i]="i"></span>
+    }
+  </div>
+  <div class="hero__scrim"></div>
+
+
+  <div class="container hero__content">
+    <span class="hero__eyebrow reveal reveal--fade-in is-visible">{{ i18n.t('home.hero.eyebrow') }}</span>
+    <h1 class="hero__title reveal reveal--fade-up is-visible">
+      {{ i18n.t('home.hero.title1') }}<br /><span class="gold-text">{{ i18n.t('home.hero.title2') }}</span>
+    </h1>
+    <p class="hero__subtitle reveal reveal--fade-up is-visible" style="transition-delay:120ms">
+      {{ i18n.t('home.hero.subtitle') }}
+    </p>
+    <div class="hero__actions reveal reveal--fade-up is-visible" style="transition-delay:220ms">
+      <a routerLink="/partidos" class="btn btn-primary">{{ i18n.t('home.hero.cta1') }}</a>
+      <a routerLink="/tabla" class="btn btn-outline">{{ i18n.t('home.hero.cta2') }}</a>
+    </div>
+  </div>
+
+  <div class="hero__stats">
+    <div class="container hero__stats-grid">
+      @for (stat of heroStats; track stat.label) {
+        <app-stat-counter [value]="stat.value" [label]="i18n.t(stat.label)" [prefix]="stat.prefix ?? ''" [suffix]="stat.suffix ?? ''"></app-stat-counter>
+      }
+    </div>
+  </div>
+
+  <div class="hero__scroll-cue">
+    <span></span>
+    {{ i18n.t('home.hero.scroll') }}
+  </div>
+</section>
+
+<!-- ============ TORNEO DESTACADO ============ -->
+<section class="section tournament-feature">
+  <div class="container tournament-feature__grid">
+    <div class="tournament-feature__media" appReveal="zoom-in">
+      @if (!featuredTournamentImgFailed) {
+        <img [src]="featuredTournament.imageUrl" [alt]="featuredTournament.name" loading="lazy" (error)="onFeaturedTournamentImgError()" />
+      } @else {
+        <div class="tournament-feature__fallback"><span>{{ i18n.t('common.posterSoon') }}</span></div>
+      }
+      <span class="tournament-feature__status">{{ i18n.t('status.' + featuredTournament.status) }}</span>
+    </div>
+    <div class="tournament-feature__body" appReveal="fade-up" [revealDelay]="120">
+      <span class="kicker">{{ i18n.t('home.tournament.kicker') }}</span>
+      <h2>{{ featuredTournament.name }}</h2>
+      <p>{{ i18n.pick(featuredTournament.format, featuredTournament.formatEn) }}</p>
+      <div class="tournament-feature__dates">
+        <div>
+          <span>{{ i18n.t('home.tournament.start') }}</span>
+          <strong>{{ i18n.pick(featuredTournament.startDate, featuredTournament.startDateEn) }}</strong>
+        </div>
+        <div>
+          <span>{{ i18n.t('home.tournament.end') }}</span>
+          <strong>{{ i18n.pick(featuredTournament.endDate, featuredTournament.endDateEn) }}</strong>
+        </div>
+        <div>
+          <span>{{ i18n.t('home.tournament.teams') }}</span>
+          <strong>{{ featuredTournament.teams }}</strong>
+        </div>
+      </div>
+      <a routerLink="/torneos" class="btn btn-primary">{{ i18n.t('home.tournament.cta') }}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CUENTA REGRESIVA ============ -->
+<section class="section results">
+  <div class="container">
+    <div class="waiting-teaser" appReveal="zoom-in">
+      <span class="kicker">{{ i18n.t('home.countdown.kicker') }}</span>
+      <h2 [innerHTML]="i18n.t('home.countdown.title')"></h2>
+      <app-countdown [targetDate]="sorteoDate"></app-countdown>
+      <p class="waiting-teaser__note">
+        {{ i18n.t('home.countdown.note') }}
+      </p>
+      <div class="waiting-teaser__links">
+        <a routerLink="/partidos" class="section-head-row__link">{{ i18n.t('home.countdown.linkCalendar') }} &rarr;</a>
+        <a routerLink="/resultados" class="section-head-row__link">{{ i18n.t('home.countdown.linkResults') }} &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORMATO / GRUPOS ============ -->
+<section class="section standings">
+  <div class="container">
+    <app-section-heading
+      align="center"
+      [kicker]="i18n.t('home.format.kicker')"
+      [title]="i18n.t('home.format.title')"
+      [subtitle]="i18n.t('home.format.subtitle')"
+    ></app-section-heading>
+
+    <div class="groups-chips" appReveal="fade-up">
+      @for (g of groupLetters; track g) {
+        <span class="groups-chips__item">{{ i18n.t('tabla.groupLabel') }} {{ g }}</span>
+      }
+    </div>
+
+    <div class="standings__cta">
+      <a routerLink="/tabla" class="btn btn-outline">{{ i18n.t('home.format.cta') }}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EQUIPOS ============ -->
+<section class="section teams">
+  <div class="container">
+    <app-section-heading
+      align="center"
+      [kicker]="i18n.t('home.teams.kicker')"
+      [title]="i18n.t('home.teams.title')"
+      [subtitle]="i18n.t('home.teams.subtitle')"
+    ></app-section-heading>
+
+    @if (topTeams.length > 0) {
+      <div class="teams__grid">
+        @for (team of topTeams; track team.id; let i = $index) {
+          <div appReveal="fade-up" [revealDelay]="i * 100">
+            <app-team-card [team]="team"></app-team-card>
+          </div>
+        }
+      </div>
+    } @else {
+      <p class="teams__waiting" appReveal="fade-up">{{ i18n.t('home.teams.waiting') }}</p>
+    }
+
+    <div class="standings__cta">
+      <a routerLink="/equipos" class="btn btn-outline">{{ i18n.t('home.teams.cta') }}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERÍA PREVIEW ============ -->
+<section class="section gallery-preview">
+  <div class="container">
+    <div class="section-head-row">
+      <app-section-heading
+        [kicker]="i18n.t('home.gallery.kicker')"
+        [title]="i18n.t('home.gallery.title')"
+        [subtitle]="i18n.t('home.gallery.subtitle')"
+      ></app-section-heading>
+      <a routerLink="/galeria" class="section-head-row__link">{{ i18n.t('home.gallery.cta') }} &rarr;</a>
+    </div>
+
+    <div class="gallery-preview__grid">
+      @for (item of gallery; track item.id; let i = $index) {
+        <div class="gallery-preview__item" appReveal="zoom-in" [revealDelay]="i * 70">
+          @if (!failedGallery.has(item.id)) {
+            <img [src]="item.imageUrl" [alt]="i18n.pick(item.caption, item.captionEn)" loading="lazy" (error)="onGalleryError(item.id)" />
+          } @else {
+            <div class="gallery-preview__fallback"><span>{{ i18n.t('common.photoSoon') }}</span></div>
+          }
+          <span>{{ i18n.pick(item.caption, item.captionEn) }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROVEEDOR OFICIAL ============ -->
+<section class="section supplier-spotlight-section">
+  <div class="container">
+    <div class="supplier-spotlight" appReveal="zoom-in">
+      <span class="supplier-spotlight__badge">{{ i18n.t('patrocinadores.supplier.kicker') }}</span>
+      <div class="supplier-spotlight__header">
+        <img class="supplier-spotlight__logo" [src]="trophyProvider.logoUrl" [alt]="trophyProvider.name" loading="lazy" />
+        <div>
+          <h2>{{ trophyProvider.name }}</h2>
+          <p class="supplier-spotlight__role">{{ i18n.pick(trophyProvider.role, trophyProvider.roleEn) }}</p>
+          @if (trophyProvider.tagline) {
+            <p class="supplier-spotlight__tagline">“{{ i18n.pick(trophyProvider.tagline, trophyProvider.taglineEn) }}”</p>
+          }
+        </div>
+      </div>
+      <div class="supplier-spotlight__gallery">
+        @for (item of trophyProvider.gallery; track item.imageUrl) {
+          <div class="supplier-spotlight__item">
+            <img [src]="item.imageUrl" [alt]="i18n.pick(item.caption, item.captionEn)" loading="lazy" />
+            <span>{{ i18n.pick(item.caption, item.captionEn) }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+@if (sponsors.length > 0) {
+  <!-- ============ PATROCINADORES ============ -->
+  <section class="section sponsors">
+    <div class="container">
+      <app-section-heading
+        align="center"
+        [kicker]="i18n.t('home.sponsors.kicker')"
+        [title]="i18n.t('home.sponsors.title')"
+      ></app-section-heading>
+    </div>
+    <app-sponsor-marquee [sponsors]="sponsors"></app-sponsor-marquee>
+  </section>
+}
+
+<!-- ============ CTA FINAL ============ -->
+<section class="section final-cta">
+  <div class="container final-cta__box" appReveal="zoom-in">
+    <img class="final-cta__ball" src="assets/images/decor/ball-3d.png" alt="" aria-hidden="true" />
+    <h2 [innerHTML]="i18n.t('home.cta.title')"></h2>
+    <p>{{ i18n.t('home.cta.subtitle') }}</p>
+    <div class="final-cta__actions">
+      <a routerLink="/contacto" class="btn btn-primary">{{ i18n.t('home.cta.contact') }}</a>
+      <a routerLink="/patrocinadores" class="btn btn-outline">{{ i18n.t('home.cta.sponsor') }}</a>
+    </div>
+  </div>
+</section>
+
+<app-chat-widget></app-chat-widget>

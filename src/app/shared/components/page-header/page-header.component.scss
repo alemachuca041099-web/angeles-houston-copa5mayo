@@ -1,0 +1,50 @@
+.page-header {
+  position: relative;
+  padding: 190px 0 90px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: 380px;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(212, 175, 55, 0.16), transparent 55%),
+    radial-gradient(circle at 90% 100%, rgba(212, 175, 55, 0.08), transparent 50%),
+    var(--ink-950);
+}
+
+.page-header__bg {
+  position: absolute;
+  inset: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4) saturate(1.05);
+  }
+}
+
+.page-header__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 7, 10, 0.5) 0%, rgba(7, 7, 10, 0.65) 50%, var(--ink-950) 100%);
+}
+
+.page-header__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 760px;
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.05;
+  }
+
+  p {
+    color: rgba(250, 248, 242, 0.72);
+    font-size: 1.05rem;
+    max-width: 600px;
+  }
+}

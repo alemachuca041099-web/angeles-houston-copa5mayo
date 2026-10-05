@@ -1,0 +1,23 @@
+<app-page-header
+  [kicker]="i18n.t('resultados.header.kicker')"
+  [title]="i18n.t('resultados.header.title')"
+  [subtitle]="i18n.t('resultados.header.subtitle')"
+  imageSeed="resultados-header"
+></app-page-header>
+
+<section class="section">
+  <div class="container">
+    <div class="waiting" appReveal="zoom-in">
+      <span class="kicker">{{ i18n.t('resultados.waiting.kicker') }}</span>
+      <h2 [innerHTML]="i18n.t('resultados.waiting.title')"></h2>
+      <p [innerHTML]="i18n.t('resultados.waiting.body')"></p>
+
+      <app-countdown [targetDate]="kickoffDate"></app-countdown>
+
+      <div class="waiting__actions">
+        <a routerLink="/torneos" class="btn btn-primary">{{ i18n.t('partidos.cta1') }}</a>
+        <a routerLink="/contacto" class="btn btn-outline">{{ i18n.t('partidos.cta2') }}</a>
+      </div>
+    </div>
+  </div>
+</section>

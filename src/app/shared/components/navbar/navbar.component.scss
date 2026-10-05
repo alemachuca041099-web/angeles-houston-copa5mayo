@@ -1,0 +1,189 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 22px 0;
+  transition: padding 0.4s var(--ease-impact);
+
+  // The scrolled background/blur lives on this pseudo-element instead of
+  // directly on .navbar, because backdrop-filter on .navbar would make it
+  // a new containing block for fixed-position descendants (the full-screen
+  // mobile menu), breaking its positioning relative to the viewport.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(7, 7, 10, 0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  &.is-scrolled::before {
+    opacity: 1;
+  }
+}
+
+.navbar__bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.navbar__crest {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.navbar__brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+
+  strong {
+    font-size: 1rem;
+    color: var(--bone-50);
+  }
+  em {
+    font-style: normal;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-500);
+    margin-top: 3px;
+  }
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  min-width: 0;
+
+  &::-webkit-scrollbar { display: none; }
+
+  a {
+    position: relative;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 242, 0.75);
+    white-space: nowrap;
+    padding: 6px 2px;
+    transition: color 0.25s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background: var(--gradient-gold);
+      transition: width 0.3s var(--ease-impact);
+    }
+
+    &:hover, &.is-active {
+      color: var(--gold-300);
+    }
+    &:hover::after, &.is-active::after {
+      width: 100%;
+    }
+  }
+}
+
+.navbar__lang {
+  flex-shrink: 0;
+}
+
+.navbar__cta {
+  flex-shrink: 0;
+  padding: 11px 22px;
+  font-size: 0.72rem;
+}
+
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  flex-shrink: 0;
+
+  span {
+    height: 2px;
+    background: var(--gold-500);
+    border-radius: 2px;
+    transition: transform 0.35s var(--ease-impact), opacity 0.25s;
+  }
+
+  &.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  &.is-open span:nth-child(2) { opacity: 0; }
+  &.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+@media (max-width: 1180px) {
+  .navbar__links {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    height: 100dvh;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    background: linear-gradient(160deg, var(--ink-900), var(--ink-950));
+    padding: 100px 32px 40px;
+    transition: opacity 0.4s var(--ease-impact), visibility 0.4s;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+
+    &.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    a { font-size: 1.1rem; }
+  }
+
+  .navbar__cta {
+    display: none;
+  }
+
+  .navbar__toggle {
+    display: flex;
+    order: -1;
+    margin-right: 4px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .navbar__lang {
+    margin-left: auto;
+  }
+}

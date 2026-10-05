@@ -1,0 +1,18 @@
+<app-page-header
+  [kicker]="i18n.t('privacidad.header.kicker')"
+  [title]="i18n.t('privacidad.header.title')"
+  [subtitle]="i18n.t('privacidad.header.subtitle')"
+></app-page-header>
+
+<section class="section">
+  <div class="container privacy-content">
+    @for (key of sections; track key) {
+      <div class="privacy-block" appReveal="fade-up">
+        <h2>{{ i18n.t('privacidad.' + key + '.title') }}</h2>
+        <p>{{ i18n.t('privacidad.' + key + '.body') }}</p>
+      </div>
+    }
+
+    <p class="privacy-updated">{{ i18n.t('privacidad.updated') }}</p>
+  </div>
+</section>

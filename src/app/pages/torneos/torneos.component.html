@@ -1,0 +1,88 @@
+<app-page-header
+  [kicker]="i18n.t('torneos.header.kicker')"
+  [title]="i18n.t('torneos.header.title')"
+  [subtitle]="i18n.t('torneos.header.subtitle')"
+  imageSeed="torneos-header"
+></app-page-header>
+
+<section class="section">
+  <div class="container tournaments-list">
+    @for (t of tournaments; track t.id; let i = $index) {
+      <article class="tournament-row" appReveal="fade-up" [revealDelay]="i * 100">
+        <div class="tournament-row__media">
+          @if (!failedImages.has(t.id)) {
+            <img [src]="t.imageUrl" [alt]="t.name" loading="lazy" (error)="onImgError(t.id)" />
+          } @else {
+            <div class="tournament-row__fallback">
+              <span>{{ i18n.t('common.posterSoon') }}</span>
+            </div>
+          }
+          <span class="tournament-row__status" [class]="statusClass(t.status)">{{ i18n.t('status.' + t.status) }}</span>
+        </div>
+        <div class="tournament-row__body">
+          <span class="kicker">{{ i18n.t('torneos.season') }} {{ t.season }}</span>
+          <h2>{{ t.name }}</h2>
+          <p>{{ i18n.pick(t.format, t.formatEn) }}</p>
+          <div class="tournament-row__meta">
+            <div><span>{{ i18n.t('torneos.teams') }}</span><strong>{{ t.teams }}</strong></div>
+            <div><span>{{ i18n.t('torneos.tournamentDates') }}</span><strong>{{ i18n.pick(t.startDate, t.startDateEn) }} – {{ i18n.pick(t.endDate, t.endDateEn) }}</strong></div>
+            @if (t.sorteoDate) {
+              <div><span>{{ i18n.t('torneos.sorteo') }}</span><strong>{{ i18n.pick(t.sorteoDate, t.sorteoDateEn) }}</strong></div>
+            }
+          </div>
+          @if (t.venue) {
+            <p class="tournament-row__venue"><strong>{{ i18n.t('torneos.venue') }}:</strong> {{ t.venue }}</p>
+          }
+          @if (t.registrationFee) {
+            <p class="tournament-row__fee"><strong>{{ i18n.t('torneos.registration') }}:</strong> {{ i18n.pick(t.registrationFee, t.registrationFeeEn) }}</p>
+          }
+        </div>
+      </article>
+
+      @if (t.championPrize || t.runnerUpPrize || t.individualAwards || t.openingMatchPrize) {
+        <div class="prizes" appReveal="fade-up" [revealDelay]="i * 100 + 80">
+          @if (t.championPrize) {
+            <div class="prize-card prize-card--champion">
+              <span class="prize-card__title">{{ i18n.t('torneos.champion') }}</span>
+              <ul>
+                @for (item of i18n.pick(t.championPrize, t.championPrizeEn); track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            </div>
+          }
+          @if (t.runnerUpPrize) {
+            <div class="prize-card prize-card--runner-up">
+              <span class="prize-card__title">{{ i18n.t('torneos.runnerUp') }}</span>
+              <ul>
+                @for (item of i18n.pick(t.runnerUpPrize, t.runnerUpPrizeEn); track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            </div>
+          }
+          @if (t.individualAwards) {
+            <div class="prize-card">
+              <span class="prize-card__title">{{ i18n.t('torneos.individualAwards') }}</span>
+              <ul>
+                @for (item of i18n.pick(t.individualAwards, t.individualAwardsEn); track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            </div>
+          }
+          @if (t.openingMatchPrize) {
+            <div class="prize-card">
+              <span class="prize-card__title">{{ i18n.t('torneos.openingMatch') }}</span>
+              <ul>
+                @for (item of i18n.pick(t.openingMatchPrize, t.openingMatchPrizeEn); track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+</section>

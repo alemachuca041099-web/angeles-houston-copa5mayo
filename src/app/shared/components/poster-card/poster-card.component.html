@@ -1,0 +1,21 @@
+<article class="poster" [class.poster--featured]="featured">
+  <div class="poster__frame">
+    @if (!imgFailed) {
+      <img [src]="imageUrl" alt="{{ competition }} — {{ tag }}" loading="lazy" (error)="onImgError()" />
+    } @else {
+      <div class="poster__fallback">
+        <span class="poster__fallback-ring"></span>
+        <span class="poster__fallback-text">Cartel<br />próximamente</span>
+      </div>
+    }
+    <div class="poster__overlay"></div>
+    @if (badge) {
+      <span class="poster__badge">{{ badge }}</span>
+    }
+    <div class="poster__info">
+      <span class="poster__competition">{{ competition }}</span>
+      <span class="poster__tag">{{ tag }}</span>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</article>

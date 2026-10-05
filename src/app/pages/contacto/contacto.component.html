@@ -1,0 +1,72 @@
+<app-page-header
+  [kicker]="i18n.t('contacto.header.kicker')"
+  [title]="i18n.t('contacto.header.title')"
+  [subtitle]="i18n.t('contacto.header.subtitle')"
+></app-page-header>
+
+<section class="section">
+  <div class="container contact-grid">
+    <div class="contact-info" appReveal="slide-right">
+      <span class="kicker">{{ i18n.t('contacto.info.kicker') }}</span>
+      <h2 [innerHTML]="i18n.t('contacto.info.title')"></h2>
+      <div class="contact-info__item">
+        <strong>{{ i18n.t('contacto.venue') }}</strong>
+        <span>14211 Reeveston Rd, Houston, TX 77039, USA</span>
+      </div>
+      <div class="contact-info__item">
+        <strong>{{ i18n.t('contacto.email') }}</strong>
+        <span>info&#64;houston.tucopacincodemayo.com</span>
+      </div>
+      <div class="contact-info__item">
+        <strong>{{ i18n.t('contacto.phone') }}</strong>
+        <span>+1 (908) 341-2559</span>
+      </div>
+      <div class="contact-info__item">
+        <strong>{{ i18n.t('contacto.hours') }}</strong>
+        <span>{{ i18n.t('contacto.hoursValue') }}</span>
+      </div>
+    </div>
+
+    <form class="contact-form" [formGroup]="form" (ngSubmit)="onSubmit()" appReveal="slide-left">
+      @if (submitted()) {
+        <div class="contact-form__success">{{ i18n.t('contacto.form.success') }}</div>
+      }
+
+      <div class="field">
+        <label for="name">{{ i18n.t('contacto.form.name') }}</label>
+        <input id="name" type="text" formControlName="name" [placeholder]="i18n.t('contacto.form.namePlaceholder')" />
+        @if (form.get('name')?.invalid && form.get('name')?.touched) {
+          <small>{{ i18n.t('contacto.form.nameError') }}</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="email">{{ i18n.t('contacto.form.email') }}</label>
+        <input id="email" type="email" formControlName="email" [placeholder]="i18n.t('contacto.form.emailPlaceholder')" />
+        @if (form.get('email')?.invalid && form.get('email')?.touched) {
+          <small>{{ i18n.t('contacto.form.emailError') }}</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="subject">{{ i18n.t('contacto.form.subject') }}</label>
+        <select id="subject" formControlName="subject">
+          <option value="general">{{ i18n.t('contacto.form.subject1') }}</option>
+          <option value="registration">{{ i18n.t('contacto.form.subject2') }}</option>
+          <option value="sponsorship">{{ i18n.t('contacto.form.subject3') }}</option>
+          <option value="press">{{ i18n.t('contacto.form.subject4') }}</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="message">{{ i18n.t('contacto.form.message') }}</label>
+        <textarea id="message" rows="5" formControlName="message" [placeholder]="i18n.t('contacto.form.messagePlaceholder')"></textarea>
+        @if (form.get('message')?.invalid && form.get('message')?.touched) {
+          <small>{{ i18n.t('contacto.form.messageError') }}</small>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-primary">{{ i18n.t('contacto.form.submit') }}</button>
+    </form>
+  </div>
+</section>

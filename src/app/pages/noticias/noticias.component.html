@@ -1,0 +1,15 @@
+<app-page-header
+  kicker="Al minuto"
+  title="Noticias de la <span class='gold-text'>liga</span>"
+  subtitle="Coberturas, anuncios y todo lo que rodea a la Copa 5 de Mayo."
+></app-page-header>
+
+<section class="section">
+  <div class="container news-grid">
+    @for (item of news; track item.id; let i = $index) {
+      <div appReveal="fade-up" [revealDelay]="(i % 3) * 100">
+        <app-news-card [news]="item"></app-news-card>
+      </div>
+    }
+  </div>
+</section>
